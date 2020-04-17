@@ -5,6 +5,51 @@
 #   Account Username
 #   Account Password
 #   Flag to determine if user account is added silently. (With / Without GECOS prompt)
+function IndonesianRepos() {
+#clear
+sudo cp /etc/apt/sources.list /tmp/
+sudo cp sources.list /etc/apt/sources.list
+
+echo 'Please enter your preferred local Repos: '
+options=("kambing.ui.ac.id" "repo.ugm.ac.id" "buaya.klas.or.id" "kartolo.sby.datautama.net.id" "mirror.poliwangi.ac.id" "Quit (use default system)")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "kambing.ui.ac.id")
+            echo "Kambing UI Repository"
+	    #as-is
+	    break
+            ;;
+        "repo.ugm.ac.id")
+            echo "UGM Repository"
+	    sudo sed -i 's/kambing.ui.ac.id/repo.ugm.ac.id/g' /etc/apt/sources.list
+	    break
+            ;;
+        "buaya.klas.or.id")
+            echo "Buaya KLAS Repository"
+	    sudo sed -i 's/kambing.ui.ac.id/buaya.klas.or.id/g' /etc/apt/sources.list
+	    break
+            ;;
+	"kartolo.sby.datautama.net.id")
+            echo "Kartolo Datautama Repository"
+	    sudo sed -i 's/kambing.ui.ac.id/kartolo.sby.datautama.net.id/g' /etc/apt/sources.list
+	    break
+	    ;;
+        "mirror.poliwangi.ac.id")
+            echo "Poliwangi Repository"
+	    sudo sed -i 's/kambing.ui.ac.id/poliwangi.ac.id/g' /etc/apt/sources.list
+	    break
+            ;;
+
+        "Quit (use default system)")
+            break
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
+echo "Local repository updated"	
+}
+
 function addUserAccount() {
     local username=${1}
     local password=${2}

@@ -18,6 +18,18 @@ includeDependencies
 output_file="output.log"
 
 function main() {
+    clear
+    echo "Ubuntu Initial Server Setup"
+    echo ""
+
+    #Set local repos
+    IndonesianRepos
+	
+    echo "Update & upgrade package"
+    sudo apt-get update -y && sudo apt-get upgrade -y
+
+    echo "\n Create standard account"
+
     read -rp "Enter the username of the new user account:" username
 
     promptForPassword
@@ -80,10 +92,10 @@ function logTimestamp() {
 }
 
 function setupTimezone() {
-    echo -ne "Enter the timezone for the server (Default is 'Asia/Singapore'):\n" >&3
+    echo -ne "Enter the timezone for the server (Default is 'Asia/Jakarta'):\n" >&3
     read -r timezone
     if [ -z "${timezone}" ]; then
-        timezone="Asia/Singapore"
+        timezone="Asia/Jakarta"
     fi
     setTimezone "${timezone}"
     echo "Timezone is set to $(cat /etc/timezone)" >&3
