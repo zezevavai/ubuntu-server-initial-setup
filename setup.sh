@@ -28,10 +28,13 @@ function main() {
     echo "Update & upgrade package"
     sudo apt-get update -y && sudo apt-get upgrade -y
 
-    echo "\n Create standard account"
+    echo ""
+    echo "Create standard account"
 
     read -rp "Enter the username of the new user account:" username
-
+    while grep "${username}" /etc/passwd >/dev/null 2>&1; do
+    	read -p "User is already exist,Try again: " username
+    done
     promptForPassword
 
     # Run setup functions
