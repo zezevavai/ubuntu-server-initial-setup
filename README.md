@@ -1,14 +1,16 @@
 # Bash setup script for Ubuntu servers
-[![Build Status](https://travis-ci.org/jasonheecs/ubuntu-server-setup.svg?branch=master)](https://travis-ci.org/jasonheecs/ubuntu-server-setup)
+Based on https://github.com/jasonheecs/ubuntu-server-setup with minor changes for Indonesian local repositoy
 
 This is a setup script to automate the setup and provisioning of Ubuntu servers. It does the following:
+* Change default repository to Indonesian Ubuntu Mirror
+* Setup the timezone for the server (Default to "Asia/Jakarta")
+* Update and upgrade server for first time
 * Adds a new user account with sudo access
 * Adds a public ssh key for the new user account
 * Disables password authentication to the server
 * Deny root login to the server
 * Setup Uncomplicated Firewall
 * Create Swap file based on machine's installed memory
-* Setup the timezone for the server (Default to "Asia/Singapore")
 * Install Network Time Protocol
 
 # Installation
@@ -21,13 +23,13 @@ sudo apt-get install git
 Clone this repository into your home directory:
 ```bash
 cd ~
-git clone https://github.com/jasonheecs/ubuntu-server-setup.git
+git clone https://github.com/zezevavai/ubuntu-server-initial-setup.git
 ```
 
 Run the setup script
 ```bash
-cd ubuntu-server-setup
-bash setup.sh
+cd ubuntu-server-initial-setup
+./setup.sh
 ```
 
 # Setup prompts
@@ -39,11 +41,7 @@ ssh-keygen -t rsa
 cat ~/.ssh/id_rsa.pub
 ```
 
-Finally, you will be prompted to specify a [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for the server. It will be set to 'Asia/Singapore' if you do not specify a value.
+Finally, you will be prompted to specify a [timezone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for the server. It will be set to 'Asia/Jakarta' if you do not specify a value.
 
 # Supported versions
-This setup script has been tested against Ubuntu 14.04, Ubuntu 16.04 and Ubuntu 18.04.
-
-# Running tests
-Tests are run against a set of Vagrant VMs. To run the tests, run the following in the project's directory:  
-`./tests/tests.sh`
+This setup script has been tested against Ubuntu 18.04.
