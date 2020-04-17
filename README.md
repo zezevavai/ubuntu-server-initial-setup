@@ -1,4 +1,4 @@
-# Bash setup script for Ubuntu servers
+# Initial setup script for Ubuntu servers
 Based on https://github.com/jasonheecs/ubuntu-server-setup with minor changes for Indonesian local repositoy
 
 This is a setup script to automate the setup and provisioning of Ubuntu servers. It does the following:
