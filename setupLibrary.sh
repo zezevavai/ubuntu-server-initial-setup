@@ -53,8 +53,6 @@ do
 done
 cat /etc/apt/sources.list
 echo "Local repository updated"
-echo "wait"
-read anykey
 }
 
 function addUserAccount() {
