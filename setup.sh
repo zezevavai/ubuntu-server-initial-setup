@@ -49,7 +49,7 @@ function main() {
     exec 3>&1 >>"${output_file}" 2>&1
     disableSudoPassword "${username}"
     addSSHKey "${username}" "${sshKey}"
-    changeSSHConfig
+    changeSSHConfig "${sshKey}"
     setupUfw
 
     if ! hasSwap; then

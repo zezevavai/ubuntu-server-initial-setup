@@ -9,9 +9,10 @@ function IndonesianRepos() {
 #clear
 sudo cp /etc/apt/sources.list /tmp/
 sudo cp sources.list /etc/apt/sources.list
-
+DIST_CODE=`cat /etc/lsb-release | grep -i code | cut -d "=" -f2`
+sudo sed -i "s/bionic/${DIST_CODE}/g" /etc/apt/sources.list
 echo 'Please enter your preferred local Repos: '
-options=("kambing.ui.ac.id" "repo.ugm.ac.id" "buaya.klas.or.id" "kartolo.sby.datautama.net.id" "mirror.poliwangi.ac.id" "Quit (use default system)")
+options=("kambing.ui.ac.id" "repo.ugm.ac.id" "buaya.klas.or.id" "kartolo.sby.datautama.net.id" "mirror.poliwangi.ac.id" "As is-sesuai default" "Quit (use default system)")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -40,14 +41,20 @@ do
 	    sudo sed -i 's/kambing.ui.ac.id/poliwangi.ac.id/g' /etc/apt/sources.list
 	    break
             ;;
-
+	"As is-sesuai default")
+	    sudo cp /tmp/sources.list /etc/apt/sources.list	
+	    break
+	    ;;
         "Quit (use default system)")
             break
             ;;
         *) echo "invalid option $REPLY";;
     esac
 done
-echo "Local repository updated"	
+cat /etc/apt/sources.list
+echo "Local repository updated"
+echo "wait"
+read anykey
 }
 
 function addUserAccount() {
@@ -92,7 +99,13 @@ function execAsUser() {
 # Modify the sshd_config file
 # shellcheck disable=2116
 function changeSSHConfig() {
-    sudo sed -re 's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' -i."$(echo 'old')" /etc/ssh/sshd_config
+    local sshKey=${1}
+    if [ -z "$sshKey" ]
+	then
+      		echo "\$sshKey is empty, SSH password authentication will not be disable"
+	else
+      		sudo sed -re 's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' -i."$(echo 'old')" /etc/ssh/sshd_config
+    fi
     sudo sed -re 's/^(\#?)(PermitRootLogin)([[:space:]]+)(.*)/PermitRootLogin no/' -i /etc/ssh/sshd_config
 }
 
