@@ -100,7 +100,7 @@ function changeSSHConfig() {
     local sshKey=${1}
     if [ -z "$sshKey" ]
 	then
-      		echo "\$sshKey is empty, SSH password authentication will not be disable"
+      		echo "\SSH Key is empty, SSH password authentication will not be disable"
 	else
       		sudo sed -re 's/^(\#?)(PasswordAuthentication)([[:space:]]+)yes/\2\3no/' -i."$(echo 'old')" /etc/ssh/sshd_config
     fi
